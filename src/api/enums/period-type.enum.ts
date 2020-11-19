@@ -1,3 +1,5 @@
+import { ApiTags } from '@nestjs/swagger';
+
 export enum PeriodType {
   FIFTEEN_MINUTES = 'FIFTEEN_MINUTES',
   FIVE_MINUTES = 'FIVE_MINUTES',

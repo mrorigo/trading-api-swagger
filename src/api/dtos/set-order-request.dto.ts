@@ -1,6 +1,12 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { InstrumentType } from '../enums/instrument-type';
 
 export class SetOrderRequest {
+  @ApiProperty({
+    type: 'enum',
+    enum: InstrumentType,
+    enumName: 'InstrumentType',
+  })
   instrumentCode: InstrumentType;
   limitDistance: number | null;
   notify: string;

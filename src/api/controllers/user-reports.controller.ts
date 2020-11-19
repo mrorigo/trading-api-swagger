@@ -1,4 +1,4 @@
-import { ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { BrokerBaseAccount } from '../dtos/broker-account-base-information.dto';
 import { BrokerInstrumentBaseInfo } from '../dtos/broker-instrument-base-information.dto';
 import { BrokerInstrumentLimitInfo } from '../dtos/broker-instrument-limit-info.dto';
@@ -31,6 +31,19 @@ export class UserReportsController {
   ): Promise<BrokerOrderEvent[]> {
     return;
   }
+  @ApiQuery({
+    type: 'string',
+    name: 'sort',
+    description: 'use example for most current orders at first',
+    example: '-time%2C-name',
+  })
+  @ApiQuery({
+    type: 'string',
+    name: 'perPage',
+    description:
+      'from my experience 20 is max, greater numbers are also valid, but ignored: 300 -> only 20 in response',
+    example: '300',
+  })
   @Get('/rest/result')
   public async getOrderResults(
     @Query('page') page: number,

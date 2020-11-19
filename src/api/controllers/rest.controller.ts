@@ -1,3 +1,4 @@
+import { AllInstruments } from '../dtos/all-instruments.dto';
 import { BrokerBaseAccount } from '../dtos/broker-account-base-information.dto';
 import { BrokerInstrumentBaseInfo } from '../dtos/broker-instrument-base-information.dto';
 import { BrokerInstrumentLimitInfo } from '../dtos/broker-instrument-limit-info.dto';
@@ -16,6 +17,7 @@ import {
   ApiBody,
   ApiExtraModels,
   ApiParam,
+  ApiQuery,
   ApiResponse,
   ApiTags,
   getSchemaPath,
@@ -33,6 +35,7 @@ import {
 @ApiTags('rest')
 @Controller('rest')
 export class RestController {
+  @ApiParam({ type: 'enum', name: 'instcode', enum: InstrumentType })
   @Get('/v1/instruments/:instcode')
   public async getInstrumentBaseInformation(
     @Param('instcode') instCode: InstrumentType,
@@ -43,10 +46,9 @@ export class RestController {
   @ApiResponse({
     schema: {
       type: 'object',
-      title: 'accountid',
       additionalProperties: {
         type: 'object',
-        $ref: '#/schemas/brokerbaseaccount',
+        $ref: getSchemaPath(BrokerBaseAccount),
       },
     },
   })
@@ -59,6 +61,10 @@ export class RestController {
   public async getInstrumentLimits(
     @Body() dto: InstrumentType[],
   ): Promise<BrokerInstrumentLimitInfo[]> {
+    return;
+  }
+  @Get('v1/instruments/search')
+  public async getAllInstruments(): Promise<AllInstruments> {
     return;
   }
 }

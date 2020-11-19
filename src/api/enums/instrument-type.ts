@@ -1,3 +1,5 @@
+import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
+
 export enum InstrumentType {
   XAGUSD = 'XAGUSD',
   XAUUSD = 'XAUUSD',

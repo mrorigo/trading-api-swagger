@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { InstrumentType } from '../enums/instrument-type';
 
 export class BrokerPosition {
@@ -16,6 +17,11 @@ export class BrokerPosition {
   trailingStop?: any;
   trailingStopPrice?: any;
   trailingStopNotify?: any;
+  @ApiProperty({
+    type: 'enum',
+    enum: InstrumentType,
+    enumName: 'InstrumentType',
+  })
   code: InstrumentType;
   margin: number;
   ppl: number;

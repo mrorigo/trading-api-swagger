@@ -1,7 +1,13 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { BrokerLimit } from './broker-limit.dto';
 import { InstrumentType } from '../enums/instrument-type';
 
 export class IfThenOrder {
+  @ApiProperty({
+    type: 'enum',
+    enum: InstrumentType,
+    enumName: 'InstrumentType',
+  })
   code: InstrumentType;
   created: string;
   humanId: string;
