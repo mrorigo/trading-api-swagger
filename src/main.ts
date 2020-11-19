@@ -1,7 +1,7 @@
+import * as fs from 'fs';
 import { AppModule } from './app.module';
 import { BrokerBaseAccount } from './api/dtos/broker-account-base-information.dto';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { InstrumentType } from './api/enums/instrument-type';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
@@ -27,6 +27,7 @@ async function bootstrap() {
         extraModels: [BrokerBaseAccount],
       },
     );
+    fs.writeFileSync('./swagger-trading212-api.json', JSON.stringify(document));
     SwaggerModule.setup('/swagger', app, document);
 
     await app.listen(3000);
