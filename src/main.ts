@@ -16,9 +16,12 @@ async function bootstrap() {
 
       new DocumentBuilder()
         .setTitle('Trading212 Api')
-        .setDescription('The Trading 212 Api swagger Documentation')
         .setVersion('1.0')
         .addCookieAuth('cookie')
+        .setBasePath('https://live.trading212.com')
+        .setDescription(
+          '<hr></br><b>SET ORDER:</b></br>there is only one endpoint for sell and buy orders. you define the direction with the quantity. </br> NEGATIVE = SELL </br> POSITIVE = BUY </br></br></br><b> GET ORDER:</b> </br>to get open orders use the user-reports endpoints or filter the position/if-then array in the account stats.</br></br></br> <b>AUTHENTICATION:</b> </br> get the cookie out of the developer tools from your browser. </br>it´s not the best way, but the login endpoint is to difficult for my swagger experiences. </br>if you are using the browser cookie, DO NOT CLOSE the window or re-login in another browser. that will make your cookie invalid.</br> if you have a smarter solution feel free to contact me;)</br></br><hr>',
+        )
         .build(),
       {
         extraModels: [BrokerBaseAccount],

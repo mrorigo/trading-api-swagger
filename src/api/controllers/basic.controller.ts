@@ -1,23 +1,12 @@
-import { AllInstruments } from '../dtos/all-instruments.dto';
 import { BrokerBaseAccount } from '../dtos/broker-account-base-information.dto';
+import { BrokerInstrument } from '../dtos/broker-instrument.dto';
 import { BrokerInstrumentBaseInfo } from '../dtos/broker-instrument-base-information.dto';
 import { BrokerInstrumentLimitInfo } from '../dtos/broker-instrument-limit-info.dto';
-import { BrokerOrderEvent } from '../dtos/broker-order-event.dto';
-import { BrokerOrderResults } from '../dtos/broker-position-result.dto';
-import { CandleDataRequest } from '../dtos/candle-data-request.dto';
-import { CandleDataResponse } from '../dtos/candle-data.response.dto';
 import { InstrumentType } from '../enums/instrument-type';
-import { OrderResponse } from '../dtos/set-order-response.dto';
-import { PriceResponse } from '../dtos/price-response.dto';
-import { SetIfThenOrder } from '../dtos/set-if-then-order.dto';
-import { SetOrderRequest } from '../dtos/set-order-request.dto';
-import { Type } from 'class-transformer';
-import { UpdateOrderDto } from '../dtos/update-order.request.dto';
+
 import {
   ApiBody,
-  ApiExtraModels,
   ApiParam,
-  ApiQuery,
   ApiResponse,
   ApiTags,
   getSchemaPath,
@@ -32,14 +21,25 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-@ApiTags('rest')
+@ApiTags('basic')
 @Controller('rest')
 export class RestController {
-  @ApiParam({ type: 'enum', name: 'instcode', enum: InstrumentType })
+  @ApiParam({
+    type: 'enum',
+    name: 'instcode',
+    enum: InstrumentType,
+    description:
+      'only a few instruments are listed here, use the other instruments endpoint to get all instruments',
+  })
   @Get('/v1/instruments/:instcode')
   public async getInstrumentBaseInformation(
     @Param('instcode') instCode: InstrumentType,
   ): Promise<BrokerInstrumentBaseInfo> {
+    return;
+  }
+
+  @Get('v1/instruments')
+  public async getAllInstruments(): Promise<BrokerInstrument[]> {
     return;
   }
 
@@ -61,10 +61,6 @@ export class RestController {
   public async getInstrumentLimits(
     @Body() dto: InstrumentType[],
   ): Promise<BrokerInstrumentLimitInfo[]> {
-    return;
-  }
-  @Get('v1/instruments/search')
-  public async getAllInstruments(): Promise<AllInstruments> {
     return;
   }
 }

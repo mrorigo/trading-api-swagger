@@ -12,6 +12,7 @@ export class IfThenOrder {
   created: string;
   humanId: string;
   orderId: string;
+  @ApiProperty({ default: 'NONE', example: 'NONE' })
   notify: string;
   quantity: number;
   targetPrice: number;
