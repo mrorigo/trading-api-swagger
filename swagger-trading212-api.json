@@ -1,830 +1,21 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Trading212 Api",
-    "description": "<hr></br><b>SET ORDER:</b></br>there is only one endpoint for sell and buy orders. you define the direction with the quantity. </br> NEGATIVE = SELL </br> POSITIVE = BUY </br></br></br><b> GET ORDER:</b> </br>to get open orders use the user-reports endpoints or filter the position/if-then array in the account stats.</br></br></br> <b>AUTHENTICATION:</b> </br> get the cookie out of the developer tools from your browser. </br>it´s not the best way, but the login endpoint is to difficult for my swagger experiences. </br>if you are using the browser cookie, DO NOT CLOSE the window or re-login in another browser. that will make your cookie invalid.</br> if you have a smarter solution feel free to contact me;)</br></br><hr>",
-    "version": "1.0",
-    "contact": {}
-  },
-  "tags": [],
-  "servers": [],
-  "components": {
-    "securitySchemes": {
-      "cookie": { "type": "apiKey", "in": "cookie", "name": "cookie" }
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Trading212 Api",
+        "description": "<hr></br><b>SET ORDER:</b></br>there is only one endpoint for sell and buy orders. you define the direction with the quantity. </br> NEGATIVE = SELL </br> POSITIVE = BUY </br></br></br><b> GET ORDER:</b> </br>to get open orders use the user-reports endpoints or filter the position/if-then array in the account stats.</br></br></br> <b>AUTHENTICATION:</b> </br> get the cookie out of the developer tools from your browser. </br>it´s not the best way, but the login endpoint is to difficult for my swagger experiences. </br>if you are using the browser cookie, DO NOT CLOSE the window or re-login in another browser. that will make your cookie invalid.</br> if you have a smarter solution feel free to contact me;)</br></br><hr>",
+        "version": "1.0",
+        "contact": {}
     },
-    "schemas": {
-      "InstrumentType": {
-        "type": "string",
-        "enum": [
-          "XAGUSD",
-          "XAUUSD",
-          "LTCUSD",
-          "BTCUSD",
-          "ETHUSD",
-          "GPBUSD",
-          "USDCAD",
-          "USDJPY",
-          "USDCHF",
-          "AUDUSD",
-          "EURUSD",
-          "XMRUSD",
-          "XRPUSD",
-          "EOSUSD",
-          "BCHUSD",
-          "EURGBP",
-          "EURJPY"
-        ]
-      },
-      "OpenCloseHours": {
-        "type": "object",
-        "properties": {
-          "time": { "type": "string" },
-          "fake": { "type": "boolean" },
-          "type": { "type": "string" }
+    "tags": [],
+    "servers": [],
+    "components": {
+        "securitySchemes": {
+            "cookie": { "type": "apiKey", "in": "cookie", "name": "cookie" }
         },
-        "required": ["time", "fake", "type"]
-      },
-      "BrokerInstrumentBaseInfo": {
-        "type": "object",
-        "properties": {
-          "code": { "$ref": "#/components/schemas/InstrumentType" },
-          "type": { "type": "string" },
-          "margin": { "type": "number" },
-          "openCloseHours": { "type": "array", "items": { "type": "string" } },
-          "openCloseInfo": {
-            "type": "object",
-            "properties": {
-              "alwaysopen": { "required": true, "type": "boolean" },
-              "openCloseHours": {
-                "required": true,
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/OpenCloseHours" }
-              }
-            }
-          },
-          "shortPositionSwap": { "type": "number" },
-          "longPositionSwap": { "type": "number" },
-          "tsSwapCharges": { "type": "string" },
-          "tsExpiryDate": { "type": "object" },
-          "marginPercent": { "type": "string" },
-          "leverage": { "type": "string" }
-        },
-        "required": [
-          "code",
-          "type",
-          "margin",
-          "openCloseHours",
-          "openCloseInfo",
-          "shortPositionSwap",
-          "longPositionSwap",
-          "tsSwapCharges",
-          "tsExpiryDate",
-          "marginPercent",
-          "leverage"
-        ]
-      },
-      "BrokerInstrument": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "number" },
-          "name": { "type": "string" },
-          "prettyName": { "type": "string" },
-          "code": {
-            "type": "string",
-            "enum": [
-              "XAGUSD",
-              "XAUUSD",
-              "LTCUSD",
-              "BTCUSD",
-              "ETHUSD",
-              "GPBUSD",
-              "USDCAD",
-              "USDJPY",
-              "USDCHF",
-              "AUDUSD",
-              "EURUSD",
-              "XMRUSD",
-              "XRPUSD",
-              "EOSUSD",
-              "BCHUSD",
-              "EURGBP",
-              "EURJPY"
-            ]
-          },
-          "type": { "type": "string" },
-          "currency": { "type": "string" },
-          "group": { "type": "string" },
-          "isin": { "type": "string" },
-          "price": {
-            "type": "object",
-            "properties": {
-              "buy": { "required": true, "type": "number" },
-              "sell": { "required": true, "type": "number" }
-            }
-          },
-          "realPrice": {
-            "type": "object",
-            "properties": {
-              "buy": { "required": true, "type": "number" },
-              "sell": { "required": true, "type": "number" }
-            }
-          },
-          "minTrade": { "type": "number" },
-          "precision": { "type": "number" },
-          "minTradeSizeCoefficient": { "type": "number" },
-          "insignificantDigits": { "type": "number" },
-          "description": { "type": "string" },
-          "enabled": { "type": "boolean" },
-          "suspended": { "type": "boolean" },
-          "marketId": { "type": "number" },
-          "shortPercent": { "type": "number" },
-          "baseCode": { "type": "string" },
-          "maxPendingDist": { "type": "number" },
-          "priorityIndex": { "type": "number" },
-          "margin": { "type": "number" },
-          "quantity": { "type": "number" },
-          "quantityPrecision": { "type": "number" },
-          "countryOfOrigin": { "type": "string" }
-        },
-        "required": [
-          "id",
-          "name",
-          "prettyName",
-          "code",
-          "type",
-          "currency",
-          "group",
-          "isin",
-          "price",
-          "realPrice",
-          "minTrade",
-          "precision",
-          "minTradeSizeCoefficient",
-          "insignificantDigits",
-          "description",
-          "enabled",
-          "suspended",
-          "marketId",
-          "shortPercent",
-          "baseCode",
-          "maxPendingDist",
-          "priorityIndex",
-          "margin",
-          "quantity",
-          "quantityPrecision",
-          "countryOfOrigin"
-        ]
-      },
-      "BrokerInstrumentLimitInfo": {
-        "type": "object",
-        "properties": {
-          "code": { "$ref": "#/components/schemas/InstrumentType" },
-          "maxBuy": { "type": "number" },
-          "maxOpenBuy": { "type": "number" },
-          "maxOpenSell": { "type": "number" },
-          "maxSell": { "type": "number" },
-          "minTrade": { "type": "number" },
-          "suspended": { "type": "boolean" }
-        },
-        "required": [
-          "code",
-          "maxBuy",
-          "maxOpenBuy",
-          "maxOpenSell",
-          "maxSell",
-          "minTrade",
-          "suspended"
-        ]
-      },
-      "SetOrderRequest": {
-        "type": "object",
-        "properties": {
-          "instrumentCode": { "$ref": "#/components/schemas/InstrumentType" },
-          "limitDistance": {
-            "type": "number",
-            "nullable": true,
-            "example": null
-          },
-          "notify": { "type": "string", "default": "NONE", "example": "NONE" },
-          "quantity": {
-            "type": "number",
-            "description": " SELL < 0 > BUY",
-            "examples": [1.3, -1.2, 5, 0.1],
-            "example": 200
-          },
-          "stopDistance": {
-            "type": "number",
-            "nullable": true,
-            "example": null
-          },
-          "targetPrice": { "type": "number", "example": 22.55 }
-        },
-        "required": [
-          "instrumentCode",
-          "limitDistance",
-          "notify",
-          "quantity",
-          "stopDistance",
-          "targetPrice"
-        ]
-      },
-      "BrokerPosition": {
-        "type": "object",
-        "properties": {
-          "code": { "$ref": "#/components/schemas/InstrumentType" },
-          "positionId": { "type": "string" },
-          "humanId": { "type": "string" },
-          "created": { "type": "string" },
-          "modified": { "type": "object" },
-          "averagePrice": { "type": "number" },
-          "averagePriceConverted": { "type": "number" },
-          "currentPrice": { "type": "number" },
-          "limitPrice": { "type": "object" },
-          "stopPrice": { "type": "object" },
-          "value": { "type": "number" },
-          "investment": { "type": "number" },
-          "limitStopNotify": { "type": "object" },
-          "trailingStop": { "type": "object" },
-          "trailingStopPrice": { "type": "object" },
-          "trailingStopNotify": { "type": "object" },
-          "margin": { "type": "number" },
-          "ppl": { "type": "number" },
-          "quantity": { "type": "number" },
-          "maxBuy": { "type": "number" },
-          "maxSell": { "type": "number" },
-          "maxOpenBuy": { "type": "number" },
-          "maxOpenSell": { "type": "number" },
-          "swap": { "type": "number" },
-          "frontend": { "type": "string" },
-          "pplAdjustment": { "type": "object" },
-          "autoInvestQuantity": { "type": "object" },
-          "fxPpl": { "type": "object" }
-        },
-        "required": [
-          "code",
-          "positionId",
-          "humanId",
-          "created",
-          "modified",
-          "averagePrice",
-          "averagePriceConverted",
-          "currentPrice",
-          "value",
-          "investment",
-          "margin",
-          "ppl",
-          "quantity",
-          "maxBuy",
-          "maxSell",
-          "maxOpenBuy",
-          "maxOpenSell",
-          "swap",
-          "frontend"
-        ]
-      },
-      "BrokerLimit": {
-        "type": "object",
-        "properties": {
-          "targetPrice": { "type": "number" },
-          "humanId": { "type": "string" },
-          "quantity": { "type": "number" },
-          "type": { "enum": ["TAKE-PROFIT", "STOP-LOSS"], "type": "string" }
-        },
-        "required": ["targetPrice", "humanId", "quantity", "type"]
-      },
-      "IfThenOrder": {
-        "type": "object",
-        "properties": {
-          "code": { "$ref": "#/components/schemas/InstrumentType" },
-          "notify": { "type": "string", "default": "NONE", "example": "NONE" },
-          "created": { "type": "string" },
-          "humanId": { "type": "string" },
-          "orderId": { "type": "string" },
-          "quantity": { "type": "number" },
-          "targetPrice": { "type": "number" },
-          "type": { "type": "string" },
-          "limit": {
-            "nullable": true,
-            "allOf": [{ "$ref": "#/components/schemas/BrokerLimit" }]
-          },
-          "stop": {
-            "nullable": true,
-            "allOf": [{ "$ref": "#/components/schemas/BrokerLimit" }]
-          }
-        },
-        "required": [
-          "code",
-          "notify",
-          "created",
-          "humanId",
-          "orderId",
-          "quantity",
-          "targetPrice",
-          "type",
-          "limit",
-          "stop"
-        ]
-      },
-      "BrokerAccountCashInfo": {
-        "type": "object",
-        "properties": {
-          "dealer": { "type": "string" },
-          "positions": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/BrokerPosition" }
-          },
-          "cash": {
-            "type": "object",
-            "properties": {
-              "free": { "required": true, "type": "number" },
-              "total": { "required": true, "type": "number" },
-              "interest": { "required": true, "type": "number" },
-              "indicator": { "required": true, "type": "number" },
-              "commission": { "required": true, "type": "number" },
-              "cash": { "required": true, "type": "number" },
-              "ppl": { "required": true, "type": "number" },
-              "result": { "required": true, "type": "number" },
-              "margin": { "required": true, "type": "number" },
-              "spreadBack": { "required": true, "type": "number" },
-              "nonRefundable": { "required": true, "type": "number" },
-              "dividend": { "required": true, "type": "number" },
-              "stockInvestment": { "required": true, "type": "number" },
-              "freeForStocks": { "required": true, "type": "number" },
-              "totalCashForWithdraw": { "required": true, "type": "number" },
-              "usedFinancing": { "required": true, "type": "object" },
-              "blockedForStocks": { "required": true, "type": "object" },
-              "pieCash": { "required": true, "type": "object" }
-            }
-          },
-          "limitStop": { "type": "array", "items": { "type": "object" } },
-          "oco": { "type": "array", "items": { "type": "object" } },
-          "ifThen": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/IfThenOrder" }
-          },
-          "equityOrders": { "type": "array", "items": { "type": "object" } },
-          "equityValueOrders": {
-            "type": "array",
-            "items": { "type": "object" }
-          },
-          "id": { "type": "number" },
-          "timestamp": { "type": "number" }
-        },
-        "required": [
-          "dealer",
-          "positions",
-          "cash",
-          "limitStop",
-          "oco",
-          "ifThen",
-          "equityOrders",
-          "equityValueOrders",
-          "id",
-          "timestamp"
-        ]
-      },
-      "OrderResponse": {
-        "type": "object",
-        "properties": {
-          "account": { "$ref": "#/components/schemas/BrokerAccountCashInfo" },
-          "positionId": { "type": "string", "nullable": true },
-          "targetPrice": { "type": "number", "nullable": true },
-          "executedPrice": { "type": "number", "nullable": true },
-          "quantity": { "type": "number", "nullable": true },
-          "coeff": {
-            "type": "object",
-            "properties": {
-              "profit": { "required": true, "type": "number" },
-              "loss": { "required": true, "type": "number" }
-            }
-          }
-        },
-        "required": [
-          "account",
-          "positionId",
-          "targetPrice",
-          "executedPrice",
-          "quantity",
-          "coeff"
-        ]
-      },
-      "SetIfThenOrder": {
-        "type": "object",
-        "properties": {
-          "notify": { "type": "string", "default": "NONE", "example": "NONE" },
-          "targetPrice": { "type": "number" },
-          "takeProfit": { "type": "number", "nullable": true },
-          "stopLoss": { "type": "number", "nullable": true },
-          "quantity": { "type": "number" }
-        },
-        "required": [
-          "notify",
-          "targetPrice",
-          "takeProfit",
-          "stopLoss",
-          "quantity"
-        ]
-      },
-      "UpdateOrderDto": {
-        "type": "object",
-        "properties": {
-          "notify": { "type": "string", "default": "NONE", "example": "NONE" },
-          "tp_sl": {
-            "type": "object",
-            "properties": {
-              "takeProfit": { "required": false, "type": "number" },
-              "stopLoss": { "required": false, "type": "number" }
-            }
-          }
-        },
-        "required": ["notify", "tp_sl"]
-      },
-      "BrokerOrderEvent": {
-        "type": "object",
-        "properties": {
-          "eventType": {
-            "type": "object",
-            "properties": {
-              "action": { "required": true, "type": "object" },
-              "source": { "required": true, "type": "string" }
-            }
-          },
-          "eventNumber": {
-            "type": "object",
-            "properties": {
-              "name": { "required": true, "type": "string" },
-              "id": { "required": true, "type": "string" },
-              "frontend": { "required": true, "type": "string" }
-            }
-          },
-          "time": { "type": "string" },
-          "direction": { "type": "object" },
-          "quantity": { "type": "number" },
-          "price": { "type": "string" },
-          "avgQuantity": { "type": "number" },
-          "avgPrice": { "type": "string" },
-          "modifiedDirection": { "type": "object" }
-        },
-        "required": [
-          "eventType",
-          "eventNumber",
-          "time",
-          "direction",
-          "quantity",
-          "price",
-          "avgQuantity",
-          "avgPrice",
-          "modifiedDirection"
-        ]
-      },
-      "BrokerClosedPosition": {
-        "type": "object",
-        "properties": {
-          "code": { "$ref": "#/components/schemas/InstrumentType" },
-          "direction": { "type": "object" },
-          "quantity": { "type": "number" },
-          "orderNumber": {
-            "type": "object",
-            "properties": {
-              "name": { "required": true, "type": "string" },
-              "link": { "required": true, "type": "string" },
-              "id": { "required": true, "type": "string" },
-              "frontend": { "required": true, "type": "string" }
-            }
-          },
-          "price": { "type": "string" },
-          "closePrice": { "type": "string" },
-          "result": { "type": "string" },
-          "eventNumber": {
-            "type": "object",
-            "properties": {
-              "name": { "required": true, "type": "string" },
-              "id": { "required": true, "type": "string" }
-            }
-          },
-          "eventType": { "type": "string" },
-          "time": { "type": "string" },
-          "openingTime": { "type": "string" }
-        },
-        "required": [
-          "code",
-          "direction",
-          "quantity",
-          "orderNumber",
-          "price",
-          "closePrice",
-          "result",
-          "eventNumber",
-          "eventType",
-          "time",
-          "openingTime"
-        ]
-      },
-      "BrokerOrderResults": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/BrokerClosedPosition" }
-          },
-          "nextPage": { "type": "string" },
-          "currentPage": { "type": "string" },
-          "totalSize": { "type": "number" }
-        },
-        "required": ["data", "nextPage", "currentPage", "totalSize"]
-      },
-      "CandleData": {
-        "type": "object",
-        "properties": {
-          "instCode": { "$ref": "#/components/schemas/InstrumentType" },
-          "limit": {
-            "type": "number",
-            "maximum": 500,
-            "description": "how many candles you get in the response",
-            "example": 250
-          },
-          "withFakes": {
-            "type": "boolean",
-            "default": false,
-            "example": false,
-            "description": "SET THIS NOT TO TRUE IF YOU TRADE WITH REAL MONEY. if true, you get simulated data for instruments with closed-hours"
-          },
-          "periodType": {
-            "enum": [
-              "FIFTEEN_MINUTES",
-              "FIVE_MINUTES",
-              "ONE_MINUTE",
-              "THIRTY_MINUTES",
-              "ONE_WEEK",
-              "ONE_DAY",
-              "FOUR_HOURS",
-              "ONE_HOUR"
-            ],
-            "type": "string"
-          }
-        },
-        "required": ["instCode", "limit", "withFakes", "periodType"]
-      },
-      "CandleDataRequest": {
-        "type": "object",
-        "properties": {
-          "candles": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/CandleData" }
-          },
-          "ticks": { "type": "array", "items": { "type": "object" } }
-        },
-        "required": ["candles", "ticks"]
-      },
-      "Candle": {
-        "type": "object",
-        "properties": {
-          "fake": { "type": "boolean", "default": false, "example": false },
-          "birthTime": { "type": "number" },
-          "bid": {
-            "type": "object",
-            "properties": {
-              "open": { "required": true, "type": "number" },
-              "high": { "required": true, "type": "number" },
-              "low": { "required": true, "type": "number" },
-              "close": { "required": true, "type": "number" }
-            }
-          },
-          "ask": {
-            "type": "object",
-            "properties": {
-              "open": { "required": true, "type": "number" },
-              "high": { "required": true, "type": "number" },
-              "low": { "required": true, "type": "number" },
-              "close": { "required": true, "type": "number" }
-            }
-          },
-          "volume": { "type": "number" },
-          "derived": { "type": "boolean" }
-        },
-        "required": ["fake", "birthTime", "bid", "ask", "volume", "derived"]
-      },
-      "CandleResponse": {
-        "type": "object",
-        "properties": {
-          "request": { "$ref": "#/components/schemas/CandleData" },
-          "candles": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/Candle" }
-          }
-        },
-        "required": ["request", "candles"]
-      },
-      "CandleDataResponse": {
-        "type": "object",
-        "properties": {
-          "candles": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/CandleResponse" }
-          },
-          "ticks": { "type": "array", "items": { "type": "object" } }
-        },
-        "required": ["candles", "ticks"]
-      },
-      "PriceResponse": {
-        "type": "object",
-        "properties": {
-          "instrumentCode": { "$ref": "#/components/schemas/InstrumentType" },
-          "sell": { "type": "number" },
-          "buy": { "type": "number" },
-          "timestamp": { "type": "string" },
-          "lastDirection": { "type": "number" }
-        },
-        "required": [
-          "instrumentCode",
-          "sell",
-          "buy",
-          "timestamp",
-          "lastDirection"
-        ]
-      },
-      "BrokerBaseAccount": {
-        "type": "object",
-        "properties": {
-          "account": { "$ref": "#/components/schemas/BrokerAccountCashInfo" },
-          "accountInfo": {
-            "type": "object",
-            "properties": {
-              "type": { "required": true, "type": "string" },
-              "tradingType": { "required": true, "type": "string" },
-              "currency": {
-                "type": "object",
-                "properties": {
-                  "id": { "required": true, "type": "number" },
-                  "code": { "required": true, "type": "string" },
-                  "symbol": { "required": true, "type": "string" },
-                  "minDemoResetSum": { "required": true, "type": "number" },
-                  "maxDemoResetSum": { "required": true, "type": "number" }
-                }
-              },
-              "username": { "required": true, "type": "object" },
-              "fullName": { "required": true, "type": "object" },
-              "email": { "required": true, "type": "object" },
-              "lang": { "required": true, "type": "object" },
-              "dateRegistered": { "required": true, "type": "string" },
-              "accountId": { "required": true, "type": "number" },
-              "additionalInfo": {
-                "type": "object",
-                "properties": {
-                  "automaticFuturesRollover": {
-                    "required": true,
-                    "type": "string"
-                  },
-                  "weekendTrader": { "required": true, "type": "string" },
-                  "sendIndicatorSms": { "required": true, "type": "string" },
-                  "tradingMode": { "required": true, "type": "string" },
-                  "dealer": { "required": true, "type": "string" },
-                  "showPrettyNames": { "required": true, "type": "string" },
-                  "promotionStatus": { "required": true, "type": "string" },
-                  "proquantCommissionPercent": {
-                    "required": true,
-                    "type": "string"
-                  }
-                }
-              },
-              "initialFund": { "required": true, "type": "number" },
-              "equityAgreementAccepted": {
-                "required": true,
-                "type": "boolean"
-              },
-              "margin": { "required": true, "type": "number" },
-              "showPredefinedQuantities": {
-                "required": true,
-                "type": "boolean"
-              },
-              "tradingPermissions": { "required": true, "type": "object" },
-              "closePositionThreshold": { "required": true, "type": "number" },
-              "marginCallThreshold": { "required": true, "type": "number" },
-              "equityCloseOnly": { "required": true, "type": "boolean" }
-            }
-          },
-          "lockedCash": {
-            "type": "object",
-            "properties": {
-              "totalLockedCash": { "required": true, "type": "number" },
-              "lockedCash": {
-                "required": true,
-                "type": "array",
-                "items": { "type": "object" }
-              }
-            }
-          }
-        },
-        "required": ["account", "accountInfo", "lockedCash"]
-      }
-    }
-  },
-  "paths": {
-    "/rest/v1/instruments/{instcode}": {
-      "get": {
-        "operationId": "RestController_getInstrumentBaseInformation",
-        "parameters": [
-          {
-            "name": "instcode",
-            "required": true,
-            "in": "path",
-            "description": "only a few instruments are listed here, use the other instruments endpoint to get all instruments",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "XAGUSD",
-                "XAUUSD",
-                "LTCUSD",
-                "BTCUSD",
-                "ETHUSD",
-                "GPBUSD",
-                "USDCAD",
-                "USDJPY",
-                "USDCHF",
-                "AUDUSD",
-                "EURUSD",
-                "XMRUSD",
-                "XRPUSD",
-                "EOSUSD",
-                "BCHUSD",
-                "EURGBP",
-                "EURJPY"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BrokerInstrumentBaseInfo"
-                }
-              }
-            }
-          }
-        },
-        "tags": ["basic"]
-      }
-    },
-    "/rest/v1/instruments": {
-      "get": {
-        "operationId": "RestController_getAllInstruments",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/BrokerInstrument" }
-                }
-              }
-            }
-          }
-        },
-        "tags": ["basic"]
-      }
-    },
-    "/rest/v1/customer/accounts/stats": {
-      "get": {
-        "operationId": "RestController_getAccount",
-        "parameters": [],
-        "responses": {
-          "200": { "description": "" },
-          "undefined": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "object",
-                    "$ref": "#/components/schemas/BrokerBaseAccount"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": ["basic"]
-      }
-    },
-    "/rest/v2/account/instruments/settings": {
-      "post": {
-        "operationId": "RestController_getInstrumentLimits",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "enum": [
+        "schemas": {
+            "InstrumentType": {
+                "type": "string",
+                "enum": [
                     "XAGUSD",
                     "XAUUSD",
                     "LTCUSD",
@@ -842,362 +33,1156 @@
                     "BCHUSD",
                     "EURGBP",
                     "EURJPY"
-                  ]
-                }
-              }
+                ]
+            },
+            "OpenCloseHours": {
+                "type": "object",
+                "properties": {
+                    "time": { "type": "string" },
+                    "fake": { "type": "boolean" },
+                    "type": { "type": "string" }
+                },
+                "required": ["time", "fake", "type"]
+            },
+            "BrokerInstrumentBaseInfo": {
+                "type": "object",
+                "properties": {
+                    "code": { "$ref": "#/components/schemas/InstrumentType" },
+                    "type": { "type": "string" },
+                    "margin": { "type": "number" },
+                    "openCloseHours": { "type": "array", "items": { "type": "string" } },
+                    "openCloseInfo": {
+                        "type": "object",
+                        "properties": {
+                            "alwaysopen": { "required": true, "type": "boolean" },
+                            "openCloseHours": {
+                                "required": true,
+                                "type": "array",
+                                "items": { "$ref": "#/components/schemas/OpenCloseHours" }
+                            }
+                        }
+                    },
+                    "shortPositionSwap": { "type": "number" },
+                    "longPositionSwap": { "type": "number" },
+                    "tsSwapCharges": { "type": "string" },
+                    "tsExpiryDate": { "type": "object" },
+                    "marginPercent": { "type": "string" },
+                    "leverage": { "type": "string" }
+                },
+                "required": [
+                    "code",
+                    "type",
+                    "margin",
+                    "openCloseHours",
+                    "openCloseInfo",
+                    "shortPositionSwap",
+                    "longPositionSwap",
+                    "tsSwapCharges",
+                    "tsExpiryDate",
+                    "marginPercent",
+                    "leverage"
+                ]
+            },
+            "BrokerInstrument": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "name": { "type": "string" },
+                    "prettyName": { "type": "string" },
+                    "code": {
+                        "type": "string",
+                        "enum": [
+                            "XAGUSD",
+                            "XAUUSD",
+                            "LTCUSD",
+                            "BTCUSD",
+                            "ETHUSD",
+                            "GPBUSD",
+                            "USDCAD",
+                            "USDJPY",
+                            "USDCHF",
+                            "AUDUSD",
+                            "EURUSD",
+                            "XMRUSD",
+                            "XRPUSD",
+                            "EOSUSD",
+                            "BCHUSD",
+                            "EURGBP",
+                            "EURJPY"
+                        ]
+                    },
+                    "type": { "type": "string" },
+                    "currency": { "type": "string" },
+                    "group": { "type": "string" },
+                    "isin": { "type": "string" },
+                    "price": {
+                        "type": "object",
+                        "properties": {
+                            "buy": { "required": true, "type": "number" },
+                            "sell": { "required": true, "type": "number" }
+                        }
+                    },
+                    "realPrice": {
+                        "type": "object",
+                        "properties": {
+                            "buy": { "required": true, "type": "number" },
+                            "sell": { "required": true, "type": "number" }
+                        }
+                    },
+                    "minTrade": { "type": "number" },
+                    "precision": { "type": "number" },
+                    "minTradeSizeCoefficient": { "type": "number" },
+                    "insignificantDigits": { "type": "number" },
+                    "description": { "type": "string" },
+                    "enabled": { "type": "boolean" },
+                    "suspended": { "type": "boolean" },
+                    "marketId": { "type": "number" },
+                    "shortPercent": { "type": "number" },
+                    "baseCode": { "type": "string" },
+                    "maxPendingDist": { "type": "number" },
+                    "priorityIndex": { "type": "number" },
+                    "margin": { "type": "number" },
+                    "quantity": { "type": "number" },
+                    "quantityPrecision": { "type": "number" },
+                    "countryOfOrigin": { "type": "string" }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "prettyName",
+                    "code",
+                    "type",
+                    "currency",
+                    "group",
+                    "isin",
+                    "price",
+                    "realPrice",
+                    "minTrade",
+                    "precision",
+                    "minTradeSizeCoefficient",
+                    "insignificantDigits",
+                    "description",
+                    "enabled",
+                    "suspended",
+                    "marketId",
+                    "shortPercent",
+                    "baseCode",
+                    "maxPendingDist",
+                    "priorityIndex",
+                    "margin",
+                    "quantity",
+                    "quantityPrecision",
+                    "countryOfOrigin"
+                ]
+            },
+            "BrokerInstrumentLimitInfo": {
+                "type": "object",
+                "properties": {
+                    "code": { "$ref": "#/components/schemas/InstrumentType" },
+                    "maxBuy": { "type": "number" },
+                    "maxOpenBuy": { "type": "number" },
+                    "maxOpenSell": { "type": "number" },
+                    "maxSell": { "type": "number" },
+                    "minTrade": { "type": "number" },
+                    "suspended": { "type": "boolean" }
+                },
+                "required": [
+                    "code",
+                    "maxBuy",
+                    "maxOpenBuy",
+                    "maxOpenSell",
+                    "maxSell",
+                    "minTrade",
+                    "suspended"
+                ]
+            },
+            "SetOrderRequest": {
+                "type": "object",
+                "properties": {
+                    "instrumentCode": { "$ref": "#/components/schemas/InstrumentType" },
+                    "limitDistance": {
+                        "type": "number",
+                        "nullable": true,
+                        "example": null
+                    },
+                    "notify": { "type": "string", "default": "NONE", "example": "NONE" },
+                    "quantity": {
+                        "type": "number",
+                        "description": " SELL < 0 > BUY",
+                        "examples": [1.3, -1.2, 5, 0.1],
+                        "example": 200
+                    },
+                    "stopDistance": {
+                        "type": "number",
+                        "nullable": true,
+                        "example": null
+                    },
+                    "targetPrice": { "type": "number", "example": 22.55 }
+                },
+                "required": [
+                    "instrumentCode",
+                    "limitDistance",
+                    "notify",
+                    "quantity",
+                    "stopDistance",
+                    "targetPrice"
+                ]
+            },
+            "BrokerPosition": {
+                "type": "object",
+                "properties": {
+                    "code": { "$ref": "#/components/schemas/InstrumentType" },
+                    "positionId": { "type": "string" },
+                    "humanId": { "type": "string" },
+                    "created": { "type": "string" },
+                    "modified": { "type": "object" },
+                    "averagePrice": { "type": "number" },
+                    "averagePriceConverted": { "type": "number" },
+                    "currentPrice": { "type": "number" },
+                    "limitPrice": { "type": "object" },
+                    "stopPrice": { "type": "object" },
+                    "value": { "type": "number" },
+                    "investment": { "type": "number" },
+                    "limitStopNotify": { "type": "object" },
+                    "trailingStop": { "type": "object" },
+                    "trailingStopPrice": { "type": "object" },
+                    "trailingStopNotify": { "type": "object" },
+                    "margin": { "type": "number" },
+                    "ppl": { "type": "number" },
+                    "quantity": { "type": "number" },
+                    "maxBuy": { "type": "number" },
+                    "maxSell": { "type": "number" },
+                    "maxOpenBuy": { "type": "number" },
+                    "maxOpenSell": { "type": "number" },
+                    "swap": { "type": "number" },
+                    "frontend": { "type": "string" },
+                    "pplAdjustment": { "type": "object" },
+                    "autoInvestQuantity": { "type": "object" },
+                    "fxPpl": { "type": "object" }
+                },
+                "required": [
+                    "code",
+                    "positionId",
+                    "humanId",
+                    "created",
+                    "modified",
+                    "averagePrice",
+                    "averagePriceConverted",
+                    "currentPrice",
+                    "value",
+                    "investment",
+                    "margin",
+                    "ppl",
+                    "quantity",
+                    "maxBuy",
+                    "maxSell",
+                    "maxOpenBuy",
+                    "maxOpenSell",
+                    "swap",
+                    "frontend"
+                ]
+            },
+            "BrokerLimit": {
+                "type": "object",
+                "properties": {
+                    "targetPrice": { "type": "number" },
+                    "humanId": { "type": "string" },
+                    "quantity": { "type": "number" },
+                    "type": { "enum": ["TAKE-PROFIT", "STOP-LOSS"], "type": "string" }
+                },
+                "required": ["targetPrice", "humanId", "quantity", "type"]
+            },
+            "IfThenOrder": {
+                "type": "object",
+                "properties": {
+                    "code": { "$ref": "#/components/schemas/InstrumentType" },
+                    "notify": { "type": "string", "default": "NONE", "example": "NONE" },
+                    "created": { "type": "string" },
+                    "humanId": { "type": "string" },
+                    "orderId": { "type": "string" },
+                    "quantity": { "type": "number" },
+                    "targetPrice": { "type": "number" },
+                    "type": { "type": "string" },
+                    "limit": {
+                        "nullable": true,
+                        "allOf": [{ "$ref": "#/components/schemas/BrokerLimit" }]
+                    },
+                    "stop": {
+                        "nullable": true,
+                        "allOf": [{ "$ref": "#/components/schemas/BrokerLimit" }]
+                    }
+                },
+                "required": [
+                    "code",
+                    "notify",
+                    "created",
+                    "humanId",
+                    "orderId",
+                    "quantity",
+                    "targetPrice",
+                    "type",
+                    "limit",
+                    "stop"
+                ]
+            },
+            "BrokerAccountCashInfo": {
+                "type": "object",
+                "properties": {
+                    "dealer": { "type": "string" },
+                    "positions": {
+                        "type": "array",
+                        "items": { "$ref": "#/components/schemas/BrokerPosition" }
+                    },
+                    "cash": {
+                        "type": "object",
+                        "properties": {
+                            "free": { "required": true, "type": "number" },
+                            "total": { "required": true, "type": "number" },
+                            "interest": { "required": true, "type": "number" },
+                            "indicator": { "required": true, "type": "number" },
+                            "commission": { "required": true, "type": "number" },
+                            "cash": { "required": true, "type": "number" },
+                            "ppl": { "required": true, "type": "number" },
+                            "result": { "required": true, "type": "number" },
+                            "margin": { "required": true, "type": "number" },
+                            "spreadBack": { "required": true, "type": "number" },
+                            "nonRefundable": { "required": true, "type": "number" },
+                            "dividend": { "required": true, "type": "number" },
+                            "stockInvestment": { "required": true, "type": "number" },
+                            "freeForStocks": { "required": true, "type": "number" },
+                            "totalCashForWithdraw": { "required": true, "type": "number" },
+                            "usedFinancing": { "required": true, "type": "object" },
+                            "blockedForStocks": { "required": true, "type": "object" },
+                            "pieCash": { "required": true, "type": "object" }
+                        }
+                    },
+                    "limitStop": { "type": "array", "items": { "type": "object" } },
+                    "oco": { "type": "array", "items": { "type": "object" } },
+                    "ifThen": {
+                        "type": "array",
+                        "items": { "$ref": "#/components/schemas/IfThenOrder" }
+                    },
+                    "equityOrders": { "type": "array", "items": { "type": "object" } },
+                    "equityValueOrders": {
+                        "type": "array",
+                        "items": { "type": "object" }
+                    },
+                    "id": { "type": "number" },
+                    "timestamp": { "type": "number" }
+                },
+                "required": [
+                    "dealer",
+                    "positions",
+                    "cash",
+                    "limitStop",
+                    "oco",
+                    "ifThen",
+                    "equityOrders",
+                    "equityValueOrders",
+                    "id",
+                    "timestamp"
+                ]
+            },
+            "OrderResponse": {
+                "type": "object",
+                "properties": {
+                    "account": { "$ref": "#/components/schemas/BrokerAccountCashInfo" },
+                    "positionId": { "type": "string", "nullable": true },
+                    "targetPrice": { "type": "number", "nullable": true },
+                    "executedPrice": { "type": "number", "nullable": true },
+                    "quantity": { "type": "number", "nullable": true },
+                    "coeff": {
+                        "type": "object",
+                        "properties": {
+                            "profit": { "required": true, "type": "number" },
+                            "loss": { "required": true, "type": "number" }
+                        }
+                    }
+                },
+                "required": [
+                    "account",
+                    "positionId",
+                    "targetPrice",
+                    "executedPrice",
+                    "quantity",
+                    "coeff"
+                ]
+            },
+            "SetIfThenOrder": {
+                "type": "object",
+                "properties": {
+                    "notify": { "type": "string", "default": "NONE", "example": "NONE" },
+                    "targetPrice": { "type": "number" },
+                    "takeProfit": { "type": "number", "nullable": true },
+                    "stopLoss": { "type": "number", "nullable": true },
+                    "quantity": { "type": "number" }
+                },
+                "required": [
+                    "notify",
+                    "targetPrice",
+                    "takeProfit",
+                    "stopLoss",
+                    "quantity"
+                ]
+            },
+            "UpdateOrderDto": {
+                "type": "object",
+                "properties": {
+                    "notify": { "type": "string", "default": "NONE", "example": "NONE" },
+                    "tp_sl": {
+                        "type": "object",
+                        "properties": {
+                            "takeProfit": { "required": false, "type": "number" },
+                            "stopLoss": { "required": false, "type": "number" }
+                        }
+                    }
+                },
+                "required": ["notify", "tp_sl"]
+            },
+            "BrokerOrderEvent": {
+                "type": "object",
+                "properties": {
+                    "eventType": {
+                        "type": "object",
+                        "properties": {
+                            "action": { "required": true, "type": "object" },
+                            "source": { "required": true, "type": "string" }
+                        }
+                    },
+                    "eventNumber": {
+                        "type": "object",
+                        "properties": {
+                            "name": { "required": true, "type": "string" },
+                            "id": { "required": true, "type": "string" },
+                            "frontend": { "required": true, "type": "string" }
+                        }
+                    },
+                    "time": { "type": "string" },
+                    "direction": { "type": "object" },
+                    "quantity": { "type": "number" },
+                    "price": { "type": "string" },
+                    "avgQuantity": { "type": "number" },
+                    "avgPrice": { "type": "string" },
+                    "modifiedDirection": { "type": "object" }
+                },
+                "required": [
+                    "eventType",
+                    "eventNumber",
+                    "time",
+                    "direction",
+                    "quantity",
+                    "price",
+                    "avgQuantity",
+                    "avgPrice",
+                    "modifiedDirection"
+                ]
+            },
+            "BrokerClosedPosition": {
+                "type": "object",
+                "properties": {
+                    "code": { "$ref": "#/components/schemas/InstrumentType" },
+                    "direction": { "type": "object" },
+                    "quantity": { "type": "number" },
+                    "orderNumber": {
+                        "type": "object",
+                        "properties": {
+                            "name": { "required": true, "type": "string" },
+                            "link": { "required": true, "type": "string" },
+                            "id": { "required": true, "type": "string" },
+                            "frontend": { "required": true, "type": "string" }
+                        }
+                    },
+                    "price": { "type": "string" },
+                    "closePrice": { "type": "string" },
+                    "result": { "type": "string" },
+                    "eventNumber": {
+                        "type": "object",
+                        "properties": {
+                            "name": { "required": true, "type": "string" },
+                            "id": { "required": true, "type": "string" }
+                        }
+                    },
+                    "eventType": { "type": "string" },
+                    "time": { "type": "string" },
+                    "openingTime": { "type": "string" }
+                },
+                "required": [
+                    "code",
+                    "direction",
+                    "quantity",
+                    "orderNumber",
+                    "price",
+                    "closePrice",
+                    "result",
+                    "eventNumber",
+                    "eventType",
+                    "time",
+                    "openingTime"
+                ]
+            },
+            "BrokerOrderResults": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": { "$ref": "#/components/schemas/BrokerClosedPosition" }
+                    },
+                    "nextPage": { "type": "string" },
+                    "currentPage": { "type": "string" },
+                    "totalSize": { "type": "number" }
+                },
+                "required": ["data", "nextPage", "currentPage", "totalSize"]
+            },
+            "CandleData": {
+                "type": "object",
+                "properties": {
+                    "instCode": { "$ref": "#/components/schemas/InstrumentType" },
+                    "limit": {
+                        "type": "number",
+                        "maximum": 500,
+                        "description": "how many candles you get in the response",
+                        "example": 250
+                    },
+                    "withFakes": {
+                        "type": "boolean",
+                        "default": false,
+                        "example": false,
+                        "description": "SET THIS NOT TO TRUE IF YOU TRADE WITH REAL MONEY. if true, you get simulated data for instruments with closed-hours"
+                    },
+                    "periodType": {
+                        "enum": [
+                            "FIFTEEN_MINUTES",
+                            "FIVE_MINUTES",
+                            "ONE_MINUTE",
+                            "THIRTY_MINUTES",
+                            "ONE_WEEK",
+                            "ONE_DAY",
+                            "FOUR_HOURS",
+                            "ONE_HOUR"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "required": ["instCode", "limit", "withFakes", "periodType"]
+            },
+            "CandleDataRequest": {
+                "type": "object",
+                "properties": {
+                    "candles": {
+                        "type": "array",
+                        "items": { "$ref": "#/components/schemas/CandleData" }
+                    },
+                    "ticks": { "type": "array", "items": { "type": "object" } }
+                },
+                "required": ["candles", "ticks"]
+            },
+            "Candle": {
+                "type": "object",
+                "properties": {
+                    "fake": { "type": "boolean", "default": false, "example": false },
+                    "birthTime": { "type": "number" },
+                    "bid": {
+                        "type": "object",
+                        "properties": {
+                            "open": { "required": true, "type": "number" },
+                            "high": { "required": true, "type": "number" },
+                            "low": { "required": true, "type": "number" },
+                            "close": { "required": true, "type": "number" }
+                        }
+                    },
+                    "ask": {
+                        "type": "object",
+                        "properties": {
+                            "open": { "required": true, "type": "number" },
+                            "high": { "required": true, "type": "number" },
+                            "low": { "required": true, "type": "number" },
+                            "close": { "required": true, "type": "number" }
+                        }
+                    },
+                    "volume": { "type": "number" },
+                    "derived": { "type": "boolean" }
+                },
+                "required": ["fake", "birthTime", "bid", "ask", "volume", "derived"]
+            },
+            "CandleResponse": {
+                "type": "object",
+                "properties": {
+                    "request": { "$ref": "#/components/schemas/CandleData" },
+                    "candles": {
+                        "type": "array",
+                        "items": { "$ref": "#/components/schemas/Candle" }
+                    }
+                },
+                "required": ["request", "candles"]
+            },
+            "CandleDataResponse": {
+                "type": "object",
+                "properties": {
+                    "candles": {
+                        "type": "array",
+                        "items": { "$ref": "#/components/schemas/CandleResponse" }
+                    },
+                    "ticks": { "type": "array", "items": { "type": "object" } }
+                },
+                "required": ["candles", "ticks"]
+            },
+            "PriceResponse": {
+                "type": "object",
+                "properties": {
+                    "instrumentCode": { "$ref": "#/components/schemas/InstrumentType" },
+                    "sell": { "type": "number" },
+                    "buy": { "type": "number" },
+                    "timestamp": { "type": "string" },
+                    "lastDirection": { "type": "number" }
+                },
+                "required": [
+                    "instrumentCode",
+                    "sell",
+                    "buy",
+                    "timestamp",
+                    "lastDirection"
+                ]
+            },
+            "BrokerBaseAccount": {
+                "type": "object",
+                "properties": {
+                    "account": { "$ref": "#/components/schemas/BrokerAccountCashInfo" },
+                    "accountInfo": {
+                        "type": "object",
+                        "properties": {
+                            "type": { "required": true, "type": "string" },
+                            "tradingType": { "required": true, "type": "string" },
+                            "currency": {
+                                "type": "object",
+                                "properties": {
+                                    "id": { "required": true, "type": "number" },
+                                    "code": { "required": true, "type": "string" },
+                                    "symbol": { "required": true, "type": "string" },
+                                    "minDemoResetSum": { "required": true, "type": "number" },
+                                    "maxDemoResetSum": { "required": true, "type": "number" }
+                                }
+                            },
+                            "username": { "required": true, "type": "object" },
+                            "fullName": { "required": true, "type": "object" },
+                            "email": { "required": true, "type": "object" },
+                            "lang": { "required": true, "type": "object" },
+                            "dateRegistered": { "required": true, "type": "string" },
+                            "accountId": { "required": true, "type": "number" },
+                            "additionalInfo": {
+                                "type": "object",
+                                "properties": {
+                                    "automaticFuturesRollover": {
+                                        "required": true,
+                                        "type": "string"
+                                    },
+                                    "weekendTrader": { "required": true, "type": "string" },
+                                    "sendIndicatorSms": { "required": true, "type": "string" },
+                                    "tradingMode": { "required": true, "type": "string" },
+                                    "dealer": { "required": true, "type": "string" },
+                                    "showPrettyNames": { "required": true, "type": "string" },
+                                    "promotionStatus": { "required": true, "type": "string" },
+                                    "proquantCommissionPercent": {
+                                        "required": true,
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "initialFund": { "required": true, "type": "number" },
+                            "equityAgreementAccepted": {
+                                "required": true,
+                                "type": "boolean"
+                            },
+                            "margin": { "required": true, "type": "number" },
+                            "showPredefinedQuantities": {
+                                "required": true,
+                                "type": "boolean"
+                            },
+                            "tradingPermissions": { "required": true, "type": "object" },
+                            "closePositionThreshold": { "required": true, "type": "number" },
+                            "marginCallThreshold": { "required": true, "type": "number" },
+                            "equityCloseOnly": { "required": true, "type": "boolean" }
+                        }
+                    },
+                    "lockedCash": {
+                        "type": "object",
+                        "properties": {
+                            "totalLockedCash": { "required": true, "type": "number" },
+                            "lockedCash": {
+                                "required": true,
+                                "type": "array",
+                                "items": { "type": "object" }
+                            }
+                        }
+                    }
+                },
+                "required": ["account", "accountInfo", "lockedCash"]
             }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/BrokerInstrumentLimitInfo"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": ["basic"]
-      }
+        }
     },
-    "/rest/v2/trading/open-positions": {
-      "post": {
-        "operationId": "OrdersController_setOrder",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/SetOrderRequest" }
+    "paths": {
+        "/rest/v1/instruments/{instcode}": {
+            "get": {
+                "operationId": "RestController_getInstrumentBaseInformation",
+                "parameters": [{
+                    "name": "instcode",
+                    "required": true,
+                    "in": "path",
+                    "description": "only a few instruments are listed here, use the other instruments endpoint to get all instruments",
+                    "schema": {
+                        "type": "string",
+                        "enum": [
+                            "XAGUSD",
+                            "XAUUSD",
+                            "LTCUSD",
+                            "BTCUSD",
+                            "ETHUSD",
+                            "GPBUSD",
+                            "USDCAD",
+                            "USDJPY",
+                            "USDCHF",
+                            "AUDUSD",
+                            "EURUSD",
+                            "XMRUSD",
+                            "XRPUSD",
+                            "EOSUSD",
+                            "BCHUSD",
+                            "EURGBP",
+                            "EURJPY"
+                        ]
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BrokerInstrumentBaseInfo"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["basic"]
             }
-          }
         },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/OrderResponse" }
-              }
+        "/rest/v1/instruments": {
+            "get": {
+                "operationId": "RestController_getAllInstruments",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/components/schemas/BrokerInstrument" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["basic"]
             }
-          }
         },
-        "tags": ["orders"]
-      }
-    },
-    "/rest/v2/pending-orders/entry-dep-limit-stop": {
-      "post": {
-        "operationId": "OrdersController_setPendingOrder",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/SetIfThenOrder" }
+        "/rest/v1/customer/accounts/stats": {
+            "get": {
+                "operationId": "RestController_getAccount",
+                "parameters": [],
+                "responses": {
+                    "200": { "description": "" },
+                    "undefined": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/BrokerBaseAccount"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["basic"]
             }
-          }
         },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/OrderResponse" }
-              }
+        "/rest/v2/account/instruments/settings": {
+            "post": {
+                "operationId": "RestController_getInstrumentLimits",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "XAGUSD",
+                                        "XAUUSD",
+                                        "LTCUSD",
+                                        "BTCUSD",
+                                        "ETHUSD",
+                                        "GPBUSD",
+                                        "USDCAD",
+                                        "USDJPY",
+                                        "USDCHF",
+                                        "AUDUSD",
+                                        "EURUSD",
+                                        "XMRUSD",
+                                        "XRPUSD",
+                                        "EOSUSD",
+                                        "BCHUSD",
+                                        "EURGBP",
+                                        "EURJPY"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BrokerInstrumentLimitInfo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["basic"]
             }
-          }
         },
-        "tags": ["orders"]
-      }
-    },
-    "/rest/v2/pending-orders/associated/{positionid}": {
-      "put": {
-        "operationId": "OrdersController_updateOrder",
-        "parameters": [
-          {
-            "name": "positionid",
-            "required": true,
-            "in": "path",
-            "example": "23c849ed-5a7c-4c15-ae5f-eff851af32b1",
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/UpdateOrderDto" }
+        "/rest/v2/trading/open-positions": {
+            "post": {
+                "operationId": "OrdersController_setOrder",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/SetOrderRequest" }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/OrderResponse" }
+                            }
+                        }
+                    }
+                },
+                "tags": ["orders"]
             }
-          }
         },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/OrderResponse" }
-              }
+        "/rest/v2/pending-orders/entry-dep-limit-stop": {
+            "post": {
+                "operationId": "OrdersController_setPendingOrder",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/SetIfThenOrder" }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/OrderResponse" }
+                            }
+                        }
+                    }
+                },
+                "tags": ["orders"]
             }
-          }
         },
-        "tags": ["orders"]
-      },
-      "delete": {
-        "operationId": "OrdersController_deletePendingOrder",
-        "parameters": [
-          {
-            "name": "positionid",
-            "required": true,
-            "in": "path",
-            "example": "23c849ed-5a7c-4c15-ae5f-eff851af32b1",
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/OrderResponse" }
-              }
+        "/rest/v2/pending-orders/associated/{positionid}": {
+            "put": {
+                "operationId": "OrdersController_updateOrder",
+                "parameters": [{
+                    "name": "positionid",
+                    "required": true,
+                    "in": "path",
+                    "example": "23c849ed-5a7c-4c15-ae5f-eff851af32b1",
+                    "schema": { "type": "string" }
+                }],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/UpdateOrderDto" }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/OrderResponse" }
+                            }
+                        }
+                    }
+                },
+                "tags": ["orders"]
+            },
+            "delete": {
+                "operationId": "OrdersController_deletePendingOrder",
+                "parameters": [{
+                    "name": "positionid",
+                    "required": true,
+                    "in": "path",
+                    "example": "23c849ed-5a7c-4c15-ae5f-eff851af32b1",
+                    "schema": { "type": "string" }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/OrderResponse" }
+                            }
+                        }
+                    }
+                },
+                "tags": ["orders"]
             }
-          }
         },
-        "tags": ["orders"]
-      }
-    },
-    "/rest/v2/pending-orders/entry-dep-limit-stop/{ifthenorderid}": {
-      "put": {
-        "operationId": "OrdersController_updateIfThenOrder",
-        "parameters": [
-          {
-            "name": "ifthenorderid",
-            "required": true,
-            "in": "path",
-            "example": "23c849ed-5a7c-4c15-ae5f-eff851af32b1",
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/SetIfThenOrder" }
+        "/rest/v2/pending-orders/entry-dep-limit-stop/{ifthenorderid}": {
+            "put": {
+                "operationId": "OrdersController_updateIfThenOrder",
+                "parameters": [{
+                    "name": "ifthenorderid",
+                    "required": true,
+                    "in": "path",
+                    "example": "23c849ed-5a7c-4c15-ae5f-eff851af32b1",
+                    "schema": { "type": "string" }
+                }],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/SetIfThenOrder" }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/OrderResponse" }
+                            }
+                        }
+                    }
+                },
+                "tags": ["orders"]
             }
-          }
         },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/OrderResponse" }
-              }
+        "/rest/v2/trading/open-positions/close/{positionid}": {
+            "delete": {
+                "operationId": "OrdersController_closeOrder",
+                "parameters": [{
+                    "name": "positionid",
+                    "required": true,
+                    "in": "path",
+                    "example": "23c849ed-5a7c-4c15-ae5f-eff851af32b1",
+                    "schema": { "type": "string" }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/OrderResponse" }
+                            }
+                        }
+                    }
+                },
+                "tags": ["orders"]
             }
-          }
         },
-        "tags": ["orders"]
-      }
-    },
-    "/rest/v2/trading/open-positions/close/{positionid}": {
-      "delete": {
-        "operationId": "OrdersController_closeOrder",
-        "parameters": [
-          {
-            "name": "positionid",
-            "required": true,
-            "in": "path",
-            "example": "23c849ed-5a7c-4c15-ae5f-eff851af32b1",
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/OrderResponse" }
-              }
+        "/rest/v2/pending-orders/entry/{ifthenorderid}": {
+            "delete": {
+                "operationId": "OrdersController_deleteIfThenOrder",
+                "parameters": [{
+                    "name": "ifthenorderid",
+                    "required": true,
+                    "in": "path",
+                    "example": "23c849ed-5a7c-4c15-ae5f-eff851af32b1",
+                    "schema": { "type": "string" }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/OrderResponse" }
+                            }
+                        }
+                    }
+                },
+                "tags": ["orders"]
             }
-          }
         },
-        "tags": ["orders"]
-      }
-    },
-    "/rest/v2/pending-orders/entry/{ifthenorderid}": {
-      "delete": {
-        "operationId": "OrdersController_deleteIfThenOrder",
-        "parameters": [
-          {
-            "name": "ifthenorderid",
-            "required": true,
-            "in": "path",
-            "example": "23c849ed-5a7c-4c15-ae5f-eff851af32b1",
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/OrderResponse" }
-              }
+        "/user-reports/rest/positionHistory/{brokerid}": {
+            "get": {
+                "operationId": "UserReportsController_getOrderEvents",
+                "parameters": [{
+                    "name": "brokerId",
+                    "required": true,
+                    "in": "path",
+                    "schema": { "type": "string" }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/components/schemas/BrokerOrderEvent" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["user-reports"]
             }
-          }
         },
-        "tags": ["orders"]
-      }
-    },
-    "/user-reports/rest/positionHistory/{brokerid}": {
-      "get": {
-        "operationId": "UserReportsController_getOrderEvents",
-        "parameters": [
-          {
-            "name": "brokerId",
-            "required": true,
-            "in": "path",
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/BrokerOrderEvent" }
-                }
-              }
+        "/user-reports/rest/result": {
+            "get": {
+                "operationId": "UserReportsController_getOrderResults",
+                "parameters": [{
+                        "name": "page",
+                        "required": true,
+                        "in": "query",
+                        "schema": { "type": "number" }
+                    },
+                    {
+                        "name": "perPage",
+                        "required": true,
+                        "in": "query",
+                        "description": "from my experience 20 is max, greater numbers are also valid, but ignored: 300 -> only 20 in response",
+                        "example": "300",
+                        "schema": { "type": "string" }
+                    },
+                    {
+                        "name": "sort",
+                        "required": true,
+                        "in": "query",
+                        "description": "use example for most current orders at first",
+                        "example": "-time%2C-name",
+                        "schema": { "type": "string" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/BrokerOrderResults" }
+                            }
+                        }
+                    }
+                },
+                "tags": ["user-reports"]
             }
-          }
         },
-        "tags": ["user-reports"]
-      }
-    },
-    "/user-reports/rest/result": {
-      "get": {
-        "operationId": "UserReportsController_getOrderResults",
-        "parameters": [
-          {
-            "name": "page",
-            "required": true,
-            "in": "query",
-            "schema": { "type": "number" }
-          },
-          {
-            "name": "perPage",
-            "required": true,
-            "in": "query",
-            "description": "from my experience 20 is max, greater numbers are also valid, but ignored: 300 -> only 20 in response",
-            "example": "300",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "sort",
-            "required": true,
-            "in": "query",
-            "description": "use example for most current orders at first",
-            "example": "-time%2C-name",
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/BrokerOrderResults" }
-              }
+        "/charting/rest/batch": {
+            "post": {
+                "operationId": "ChartingController_getChartData",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/CandleDataRequest" }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/CandleDataResponse" }
+                            }
+                        }
+                    }
+                },
+                "tags": ["charting"]
             }
-          }
         },
-        "tags": ["user-reports"]
-      }
-    },
-    "/charting/rest/batch": {
-      "post": {
-        "operationId": "ChartingController_getChartData",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/CandleDataRequest" }
+        "/charting/charting/prices": {
+            "post": {
+                "operationId": "ChartingController_getCurrentPrices",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "XAGUSD",
+                                        "XAUUSD",
+                                        "LTCUSD",
+                                        "BTCUSD",
+                                        "ETHUSD",
+                                        "GPBUSD",
+                                        "USDCAD",
+                                        "USDJPY",
+                                        "USDCHF",
+                                        "AUDUSD",
+                                        "EURUSD",
+                                        "XMRUSD",
+                                        "XRPUSD",
+                                        "EOSUSD",
+                                        "BCHUSD",
+                                        "EURGBP",
+                                        "EURJPY"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/components/schemas/PriceResponse" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["charting"]
             }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/CandleDataResponse" }
-              }
-            }
-          }
-        },
-        "tags": ["charting"]
-      }
-    },
-    "/charting/charting/prices": {
-      "post": {
-        "operationId": "ChartingController_getCurrentPrices",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "enum": [
-                    "XAGUSD",
-                    "XAUUSD",
-                    "LTCUSD",
-                    "BTCUSD",
-                    "ETHUSD",
-                    "GPBUSD",
-                    "USDCAD",
-                    "USDJPY",
-                    "USDCHF",
-                    "AUDUSD",
-                    "EURUSD",
-                    "XMRUSD",
-                    "XRPUSD",
-                    "EOSUSD",
-                    "BCHUSD",
-                    "EURGBP",
-                    "EURJPY"
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/PriceResponse" }
-                }
-              }
-            }
-          }
-        },
-        "tags": ["charting"]
-      }
+        }
     }
-  }
 }
