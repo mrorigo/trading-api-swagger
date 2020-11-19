@@ -1,6 +1,11 @@
 Trading212 Api Controllers
 
-Not found on the internet, so I did it by myself. 
+SWAGGER: /swagger-trading212-api.json
+
+SWAGGER-UI: baseUrl + /swagger
+SWAGGER-JSON: baseUrl + /swagger-json
+
+<p>Not found on the internet, so I did it by myself. </p>
 
 Feel free to make improovements or contact me. 
 
