@@ -21,7 +21,7 @@ export class ChartingController {
     return;
   }
   @ApiBody({ enum: InstrumentType, isArray: true })
-  @Post('/charting/prices')
+  @Post('/prices')
   public async getCurrentPrices(
     @Body() dto: InstrumentType[],
   ): Promise<PriceResponse[]> {
